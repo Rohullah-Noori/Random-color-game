@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            margin: auto;
+            margin-top: 60px;
+        }
+
+        .header {
+            padding: 10px;
+            text-align: center;
+            background-color: #ddd;
+        }
+
+        .colors_box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .colors_box button {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        .reset {
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="textColor"> </h1>
+        </div>
+        <div class="colors_box">
+            <button id="color1" onclick="checkColor(this.value)"></button>
+            <button id="color2" onclick="checkColor(this.value)"></button>
+            <button id="color3" onclick="checkColor(this.value)"></button>
+        </div>
+        <button onclick="makeRandomColor()" class="reset">Reset</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function generateRandomNumber(min, max) {
+        return min + Math.floor(Math.random() * (max - min));
+    }
+    var randomColor = "";
+
+    function makeRandomColor() {
+        var red = generateRandomNumber(0, 255)
+        var green = generateRandomNumber(0, 255)
+        var blue = generateRandomNumber(0, 255)
+
+
+        randomColor = `rgb(${red},${green},${blue})`;
+        document.getElementById("textColor").innerHTML = randomColor
+
+
+        var randomBox = generateRandomNumber(1, 4)
+        if (randomBox == 4) {
+            randomBox = 3;
+        }
+
+        var randomSelectedBox = document.getElementById("color" + randomBox);
+        randomSelectedBox.style.backgroundColor = randomColor
+        randomSelectedBox.value = randomColor
+
+
+
+
+        var x, y;
+
+        switch (randomBox) {
+            case 1:
+                x = 2;
+                y = 3;
+                break;
+
+            case 2:
+                x = 3;
+                y = 1;
+                break;
+
+            case 3:
+                x = 1;
+                y = 2;
+                break;
+            default:
+                alert("invalid number")
+        }
+
+        var colorX = `rgb(${green},${red},${blue})`;
+        var colorY = `rgb(${red},${blue},${green})`;
+
+        var boxX = document.getElementById("color" + x);
+        boxX.style.backgroundColor = colorX
+        boxX.value = colorX
+
+        var boxY = document.getElementById("color" + y);
+        boxY.style.backgroundColor = colorY
+        boxY.value = colorY
+
+    }
+
+    makeRandomColor()
+
+
+
+    function checkColor(color) {
+        if (color === randomColor) {
+            alert("you win")
+            makeRandomColor();
+        } else {
+            alert("not corect")
+        }
+    }
+
+</script>
